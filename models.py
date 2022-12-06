@@ -9,7 +9,8 @@ class Enemy:
         self.level = level
 
     def decrease_health(self):
-        ...
+        health -= self.level
+        return health
 
     def select_attack(self):
         ...
