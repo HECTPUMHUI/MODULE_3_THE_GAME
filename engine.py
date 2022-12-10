@@ -1,0 +1,6 @@
+def get_player_name(name):
+    ...
+
+
+def play():
+    ...
