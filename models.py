@@ -1,11 +1,10 @@
-from random import randint
-
-import settings
-
 """
  Model of players and enemy's
 
 """
+from random import randint
+
+import settings
 
 
 class Enemy:
@@ -15,14 +14,17 @@ class Enemy:
         self.level = level
 
     def decrease_health(self):
+        """ decrease health """
         self.level -= self.level
         return self.level
 
     def select_attack(self):
+        """ select attack """
         ENEMY_DEFENCE = int(randint(1, 3))
         return ENEMY_DEFENCE
 
     def select_defence(self):
+        """ select defence """
         ENEMY_ATTACK = int(randint(1, 3))
         return ENEMY_ATTACK
 
@@ -35,17 +37,21 @@ class Player:
         self.health_point = health_point
 
     def decrease_health(self):
+        """ decrease health """
         result = self.health_point
         result -= 1
         return result
 
     def select_attack(self, user_attack):
+        """ select attack """
         return user_attack
 
     def select_defence(self, user_defence):
+        """ select defence """
         return user_defence
 
     def fight(self, user_attack, ENEMY_DEFENCE, user_defence, ENEMY_ATTACK):
+        """ fight a player """
         if user_attack == 1:
             if ENEMY_DEFENCE == 1:
                 print("IT'S A DRAW!")
@@ -104,9 +110,11 @@ class Player:
                 print("IT'S A DRAW!")
 
     def attack(self, user_attack):
+        """Attack"""
         return user_attack
 
     def defence(self, user_defence):
+        """Defense"""
         return user_defence
 
 
@@ -115,8 +123,8 @@ print(f'{user_1.name = }')
 print(f'{user_1.health_point = }')
 enemy_1 = Enemy(10)
 print(f'{enemy_1.level = }')
-e1 = enemy_1.select_attack()
-e2 = enemy_1.select_defence()
-a1 = user_1.select_defence(2)
-a2 = user_1.select_attack(1)
-user_1.fight(a1, e1, a2, e2)
+E1 = enemy_1.select_attack()
+E2 = enemy_1.select_defence()
+A1 = user_1.select_defence(2)
+A2 = user_1.select_attack(1)
+user_1.fight(A1, E1, A2, E2)
