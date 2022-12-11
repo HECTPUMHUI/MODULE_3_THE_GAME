@@ -80,5 +80,6 @@ while True:
         print('Game over')
         break
     if PLAYER_HEALTH_LEVEL <= 0:
+        print(f'{PLAYER_SCORE = }')
         print('Game over')
         break

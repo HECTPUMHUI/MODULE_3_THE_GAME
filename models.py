@@ -13,20 +13,23 @@ class Enemy:
     def __init__(self, level: int):
         self.level = level
 
+    def __str__(self):
+        return f'{self.level = }'
+
     def decrease_health(self):
         """ decrease health """
-        self.level -= self.level
+        self.level -= 1
         return self.level
 
     def select_attack(self):
-        """ select attack """
-        ENEMY_DEFENCE = int(randint(1, 3))
-        return ENEMY_DEFENCE
+        """ enemy random attack """
+        enemy_attack = int(randint(1, 3))
+        return enemy_attack
 
     def select_defence(self):
-        """ select defence """
-        ENEMY_ATTACK = int(randint(1, 3))
-        return ENEMY_ATTACK
+        """ enemy random defence """
+        enemy_defence = int(randint(1, 3))
+        return enemy_defence
 
 
 class Player:
@@ -35,54 +38,58 @@ class Player:
     def __init__(self, name: str, health_point=settings.INITIAL_PLAYER_HEALTH):
         self.name = name
         self.health_point = health_point
+        self.PLAYER_SCORE = 0
 
     def decrease_health(self):
         """ decrease health """
-        result = self.health_point
-        result -= 1
-        return result
+        self.health_point -= 1
+        return self.health_point
 
     def select_attack(self, user_attack):
         """ select attack """
+        user_attack = int(input("\nPlease enter your attack:"
+                                "\n\t WARRIOR = 1\tROBBER = 2\tWIZARD = 3\n "))
         return user_attack
 
     def select_defence(self, user_defence):
         """ select defence """
+        user_defence = int(input("\nPlease enter your defence:"
+                                 "\n\t WARRIOR = 1\tROBBER = 2\tWIZARD = 3\n "))
         return user_defence
 
-    def fight(self, user_attack, ENEMY_DEFENCE, user_defence, ENEMY_ATTACK):
+    def fight(self, user_attack, user_defence, enemy: Enemy):
         """ fight a player """
         if user_attack == 1:
-            if ENEMY_DEFENCE == 1:
+            if enemy.select_defence == 1:
                 print("IT'S A DRAW!")
-            elif ENEMY_DEFENCE == 2:
+            elif enemy.select_defence == 2:
                 print("YOUR ATTACK IS SUCCESSFUL!")
                 settings.ENEMY_HEALTH_LEVEL -= 1
-                settings.PLAYER_SCORE += 1
-            elif ENEMY_DEFENCE == 3:
+                self.PLAYER_SCORE += 1
+            elif enemy.select_defence == 3:
                 print("YOUR ATTACK IS FAILED!")
 
         if user_attack == 2:
-            if ENEMY_DEFENCE == 1:
+            if enemy.select_defence == 1:
                 print("YOUR ATTACK IS FAILED!")
-            elif ENEMY_DEFENCE == 2:
+            elif enemy.select_defence == 2:
                 print("IT'S A DRAW!")
-            elif ENEMY_DEFENCE == 3:
+            elif enemy.select_defence == 3:
                 print("YOUR ATTACK IS SUCCESSFUL!")
                 settings.ENEMY_HEALTH_LEVEL -= 1
-                settings.PLAYER_SCORE += 1
+                self.PLAYER_SCORE += 1
 
         if user_attack == 3:
-            if ENEMY_DEFENCE == 1:
+            if enemy.select_defence == 1:
                 print("YOUR ATTACK IS SUCCESSFUL!")
                 settings.ENEMY_HEALTH_LEVEL -= 1
-                settings.PLAYER_SCORE += 1
-            elif ENEMY_DEFENCE == 2:
+                self.PLAYER_SCORE += 1
+            elif enemy.select_defence == 2:
                 print("YOUR ATTACK IS FAILED!")
-            elif ENEMY_DEFENCE == 3:
+            elif enemy.select_defence == 3:
                 print("IT'S A DRAW!")
 
-        if ENEMY_ATTACK == 1:
+        if enemy.select_attack == 1:
             if user_defence == 1:
                 print("IT'S A DRAW!")
             elif user_defence == 2:
@@ -91,7 +98,7 @@ class Player:
             elif user_defence == 3:
                 print("YOUR DEFENCE IS SUCCESSFUL!")
 
-        if ENEMY_ATTACK == 2:
+        if enemy.select_attack == 2:
             if user_defence == 1:
                 print("YOUR DEFENCE IS SUCCESSFUL!")
             elif user_defence == 2:
@@ -100,13 +107,13 @@ class Player:
                 print("YOUR DEFENCE IS FAILED!")
                 settings.PLAYER_HEALTH_LEVEL -= 1
 
-        if ENEMY_ATTACK == 3:
-            if ENEMY_DEFENCE == 1:
+        if enemy.select_attack == 3:
+            if user_defence == 1:
                 print("YOUR DEFENCE IS FAILED!")
                 settings.PLAYER_HEALTH_LEVEL -= 1
-            elif ENEMY_DEFENCE == 2:
+            elif user_defence == 2:
                 print("YOUR DEFENCE IS SUCCESSFUL!")
-            elif ENEMY_DEFENCE == 3:
+            elif user_defence == 3:
                 print("IT'S A DRAW!")
 
     def attack(self, user_attack):
@@ -119,12 +126,23 @@ class Player:
 
 
 user_1 = Player('Jimmy')
-print(f'{user_1.name = }')
-print(f'{user_1.health_point = }')
+# print(f'{user_1.name = }')
+# print(f'{user_1.health_point = }')
 enemy_1 = Enemy(10)
-print(f'{enemy_1.level = }')
-E1 = enemy_1.select_attack()
-E2 = enemy_1.select_defence()
+# print(f'{enemy_1.level = }')
+print(user_1.PLAYER_SCORE)
 A1 = user_1.select_defence(2)
 A2 = user_1.select_attack(1)
-user_1.fight(A1, E1, A2, E2)
+
+print(user_1.PLAYER_SCORE)
+print(A1)
+print(A2)
+print(enemy_1)
+print(f"{enemy_1.select_attack() = }")
+print(f"{enemy_1.select_defence() = }")
+print(f"{user_1.name = }")
+print(f"{user_1.health_point = }")
+user_1.decrease_health()
+user_1.decrease_health()
+print(f"{user_1.health_point = }")
+print(user_1.fight(A1, A2, enemy_1))
