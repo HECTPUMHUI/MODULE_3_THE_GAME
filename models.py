@@ -4,7 +4,9 @@
 """
 from random import randint
 
+import exceptions
 import settings
+from exceptions import EnemyDown, GameOver
 
 
 class Enemy:
@@ -19,6 +21,8 @@ class Enemy:
     def decrease_health(self):
         """ decrease health """
         self.level -= 1
+        if self.level < 1:
+            raise exceptions.EnemyDown(f'Enemy Down. {self.level =}')
         return self.level
 
     def select_attack(self):
@@ -43,6 +47,8 @@ class Player:
     def decrease_health(self):
         """ decrease health """
         self.health_point -= 1
+        if self.health_point < 1:
+            raise exceptions.GameOver
         return self.health_point
 
     def select_attack(self):
@@ -88,9 +94,6 @@ class Player:
 
     def attack(self, enemy) -> None:
         """Attack"""
-        if enemy.level <= 0:
-            print('You win')
-            print('Game Over')
         attack = self.select_attack()
         defence = enemy.select_defence()
         fight_result = self.fight(attack, defence)
@@ -103,11 +106,10 @@ class Player:
             enemy.decrease_health()
             self.score += 1
             print("YOUR ATTACK IS SUCCESSFUL!")
+            print(f"Enemy have just: {enemy.level}")
 
     def defence(self, enemy: Enemy) -> None:
         """Defense"""
-        if self.health_point <= 0:
-            print('Game Over')
         attack = enemy.select_attack()
         defence = self.select_defence()
         fight_result = self.fight(attack, defence)
@@ -116,17 +118,6 @@ class Player:
         elif fight_result == 2:
             print("YOUR DEFENCE IS FAILED!")
             self.decrease_health()
+            print(f"You have just: {self.health_point}")
         elif fight_result == 3:
             print("YOUR DEFENCE IS SUCCESSFUL!")
-
-
-user_1 = Player('Jimmy')
-
-enemy_1 = Enemy(10)
-
-user_1.attack(enemy_1)
-user_1.defence(enemy_1)
-user_1.select_attack()
-user_1.select_defence()
-enemy_1.select_attack()
-enemy_1.select_defence()
