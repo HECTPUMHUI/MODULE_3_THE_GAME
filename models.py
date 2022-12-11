@@ -4,7 +4,6 @@
 """
 from random import randint
 
-import exceptions
 import settings
 from exceptions import EnemyDown, GameOver
 
@@ -22,7 +21,7 @@ class Enemy:
         """ decrease health """
         self.level -= 1
         if self.level < 1:
-            raise exceptions.EnemyDown(f'Enemy Down. {self.level =}')
+            raise EnemyDown('Enemy Down')
         return self.level
 
     def select_attack(self):
@@ -48,7 +47,7 @@ class Player:
         """ decrease health """
         self.health_point -= 1
         if self.health_point < 1:
-            raise exceptions.GameOver
+            raise GameOver
         return self.health_point
 
     def select_attack(self):
