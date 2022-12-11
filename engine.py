@@ -15,6 +15,7 @@ def play() -> None:
     player_name = get_player_name()
     player = Player(player_name)
     enemy = Enemy(ENEMY_HEALTH_LEVEL)
+    score_list = []
 
     flag = True
     just_do_it = input('AVAILABLE MENU CHOICES: PLAY, SCORES, EXIT\n'
@@ -26,12 +27,18 @@ def play() -> None:
                 player.defence(enemy)
             except EnemyDown:
                 print(f'You WIN! \n Your score: {player.score}')
+                score_list.append(player.name)
+                score_list.append(player.score)
+                print(score_list)
             except GameOver:
                 print(f'GAME OVER! \n Enemy level: {enemy.level} \n Your score: {player.score}')
+                score_list.append(player.name)
+                score_list.append(player.score)
+                print(score_list)
             except KeyboardInterrupt:
                 print(f'Enemy level: {enemy.level} \n Your score: {player.score}')
     elif just_do_it == 'SCORES':
-        print('Inda construction')
+        print(score_list)
         flag = False
     elif just_do_it == 'EXIT':
         flag = False
