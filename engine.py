@@ -29,20 +29,22 @@ def play() -> None:
                 print(f'You WIN! \n Your score: {player.score}')
                 score_list.append(player.name)
                 score_list.append(player.score)
-                print(score_list)
+                with open("file_with_score.txt", "a") as file:
+                    print(*score_list, file=file, sep=' \n')
+                    break
             except GameOver:
                 print(f'GAME OVER! \n Enemy level: {enemy.level} \n Your score: {player.score}')
                 score_list.append(player.name)
                 score_list.append(player.score)
-                print(score_list)
             except KeyboardInterrupt:
                 print(f'Enemy level: {enemy.level} \n Your score: {player.score}')
+                break
     elif just_do_it == 'SCORES':
-        print(score_list)
+        score_file = open("file_with_score.txt", "r")
+        print(score_file.read())
         flag = False
     elif just_do_it == 'EXIT':
         flag = False
-
 
 if __name__ == '__main__':
     play()
