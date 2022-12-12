@@ -32,8 +32,7 @@ def play() -> None:
                 score_list.append(player.score)
                 with open("file_with_score.txt", "a") as file:
                     print(*score_list, file=file, sep=' \n')
-                print(f'{ENEMY_HEALTH_LEVEL = }')
-                play()
+                enemy = Enemy(ENEMY_HEALTH_LEVEL + 1)
             except GameOver:
                 print(f'GAME OVER! \n Enemy level: {enemy.level} \n Your score: {player.score}')
                 score_list.append(player.name)
