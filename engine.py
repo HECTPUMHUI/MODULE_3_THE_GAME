@@ -1,7 +1,9 @@
 """ Let's fight begin """
 from exceptions import EnemyDown, GameOver
 from models import Enemy, Player
-from settings import ENEMY_HEALTH_LEVEL
+
+
+# from settings import ENEMY_HEALTH_LEVEL
 
 
 def get_player_name():
@@ -12,12 +14,12 @@ def get_player_name():
 
 def play() -> None:
     """ play the game """
-    level_enemy = ENEMY_HEALTH_LEVEL + 1
+    ENEMY_HEALTH_LEVEL = 5
     player_name = get_player_name()
     player = Player(player_name)
-    enemy = Enemy(level_enemy)
+    enemy = Enemy(ENEMY_HEALTH_LEVEL)
     score_list = []
-    print(f'{level_enemy = }')
+    print(f'{ENEMY_HEALTH_LEVEL = }')
     flag = True
     just_do_it = input('AVAILABLE MENU CHOICES: PLAY, SCORES, EXIT\n'
                        'TYPE YOUR CHOICE HERE: ')
@@ -33,7 +35,8 @@ def play() -> None:
                 score_list.append(player.score)
                 with open("file_with_score.txt", "a") as file:
                     print(*score_list, file=file, sep=' \n')
-                print(f'{level_enemy = }')
+                ENEMY_HEALTH_LEVEL += 1
+                print(f'{ENEMY_HEALTH_LEVEL = }')
                 play()
             except GameOver:
                 print(f'GAME OVER! \n Enemy level: {enemy.level} \n Your score: {player.score}')
@@ -46,7 +49,7 @@ def play() -> None:
     elif just_do_it == 'SCORES':
         score_file = open("file_with_score.txt", "r")
         print(score_file.read())
-        flag = False
+        play()
     elif just_do_it == 'EXIT':
         flag = False
 
