@@ -22,7 +22,7 @@ class Enemy:
         self.level -= 1
         if self.level < 1:
             raise EnemyDown('Enemy Down')
-        return self.level + 1
+        return self.level
 
     def select_attack(self):
         """ enemy random attack """

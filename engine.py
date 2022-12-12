@@ -1,9 +1,7 @@
 """ Let's fight begin """
 from exceptions import EnemyDown, GameOver
 from models import Enemy, Player
-
-
-# from settings import ENEMY_HEALTH_LEVEL
+from settings import ENEMY_HEALTH_LEVEL
 
 
 def get_player_name():
@@ -14,7 +12,6 @@ def get_player_name():
 
 def play() -> None:
     """ play the game """
-    ENEMY_HEALTH_LEVEL = 5
     player_name = get_player_name()
     player = Player(player_name)
     enemy = Enemy(ENEMY_HEALTH_LEVEL)
@@ -35,7 +32,6 @@ def play() -> None:
                 score_list.append(player.score)
                 with open("file_with_score.txt", "a") as file:
                     print(*score_list, file=file, sep=' \n')
-                ENEMY_HEALTH_LEVEL += 1
                 print(f'{ENEMY_HEALTH_LEVEL = }')
                 play()
             except GameOver:
