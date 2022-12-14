@@ -9,6 +9,11 @@ def get_player_name():
     return player
 
 
+def watch_scores():
+    score_file = open("file_with_score.txt", "r")
+    print(score_file.read())
+
+
 def play() -> None:
     """ play the game """
     player_name = get_player_name()
@@ -21,8 +26,7 @@ def play() -> None:
         just_do_it = input('AVAILABLE MENU CHOICES: PLAY, SCORES, EXIT\n'
                            'TYPE YOUR CHOICE HERE: ')
         if just_do_it == 'SCORES':
-            score_file = open("file_with_score.txt", "r")
-            print(score_file.read())
+            watch_scores()
             continue
         if just_do_it == 'EXIT':
             break
@@ -41,7 +45,8 @@ def play() -> None:
                     enemy = Enemy(enemy.level + 1)
                     continue
                 except GameOver:
-                    print(f'GAME OVER! \n>>>Enemy level: {enemy.level} \n>>>Your score: {player.score}')
+                    print(f'GAME OVER! \n>>>Enemy level: {enemy.level} \n'
+                          f'>>>Your score: {player.score}')
                     score_list.append(player.name)
                     score_list.append(player.score)
                     break
@@ -51,4 +56,4 @@ if __name__ == '__main__':
     try:
         play()
     except KeyboardInterrupt:
-        print('екстрений вихід')
+        print('EMERGENCY EXIT')
