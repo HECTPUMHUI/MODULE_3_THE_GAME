@@ -10,8 +10,15 @@ def get_player_name():
 
 
 def watch_scores():
+    """ watch scores in file """
     score_file = open("file_with_score.txt", "r")
     print(score_file.read())
+
+
+def save_scores(list):
+    """ save scores in file """
+    with open("file_with_score.txt", "a") as file:
+        print(*list, file=file, sep=' \n')
 
 
 def play() -> None:
@@ -20,7 +27,6 @@ def play() -> None:
     player = Player(player_name)
     enemy = Enemy(5)
     score_list = []
-    print(f'{enemy.health_point = }')
 
     while True:
         just_do_it = input('AVAILABLE MENU CHOICES: PLAY, SCORES, EXIT\n'
@@ -40,16 +46,13 @@ def play() -> None:
                     print(f'You WIN! \n>>>Your score: {player.score}')
                     score_list.append(player.name)
                     score_list.append(player.score)
-                    with open("file_with_score.txt", "a") as file:
-                        print(*score_list, file=file, sep=' \n')
+                    save_scores(score_list)
                     enemy = Enemy(enemy.level + 1)
-                    continue
                 except GameOver:
                     print(f'GAME OVER! \n>>>Enemy level: {enemy.level} \n'
                           f'>>>Your score: {player.score}')
-                    score_list.append(player.name)
-                    score_list.append(player.score)
                     break
+            break
 
 
 if __name__ == '__main__':

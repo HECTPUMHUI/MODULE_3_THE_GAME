@@ -9,7 +9,7 @@ from exceptions import EnemyDown, GameOver
 
 
 class Enemy:
-    """ Create a new enemy  """
+    """ Create a new enemy """
 
     def __init__(self, level: int):
         self.level = level
