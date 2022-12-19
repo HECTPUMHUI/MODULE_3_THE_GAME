@@ -9,20 +9,21 @@ from exceptions import EnemyDown, GameOver
 
 
 class Enemy:
-    """ Create a new enemy  """
+    """ Create a new enemy """
 
     def __init__(self, level: int):
         self.level = level
+        self.health_point = level
 
     def __str__(self):
         return f'{self.level = }'
 
     def decrease_health(self):
         """ decrease health """
-        self.level -= 1
-        if self.level < 1:
-            raise EnemyDown('Enemy Down')
-        return self.level
+        self.health_point -= 1
+        if self.health_point < 1:
+            raise EnemyDown
+        return self.health_point
 
     def select_attack(self):
         """ enemy random attack """
@@ -42,6 +43,9 @@ class Player:
         self.name = name
         self.health_point = health_point
         self.score = 0
+
+    def __repr__(self):
+        return f'Player: {self.name} | Score: {self.score}'
 
     def decrease_health(self):
         """ decrease health """
@@ -65,31 +69,15 @@ class Player:
     @staticmethod
     def fight(attack, defence):
         """ Mortal Combat"""
-        fight_result = 0
-        if attack == 1:
-            if defence == 1:
-                fight_result = 1
-            if defence == 2:
-                fight_result = 2
-            if defence == 3:
-                fight_result = 3
-
-        if attack == 2:
-            if defence == 1:
-                fight_result = 2
-            if defence == 2:
-                fight_result = 1
-            if defence == 3:
-                fight_result = 3
-
-        if attack == 3:
-            if defence == 1:
-                fight_result = 3
-            if defence == 2:
-                fight_result = 2
-            if defence == 3:
-                fight_result = 1
-        return fight_result
+        if attack == 1 and defence == 1 or attack == 2 and defence == 2 \
+                or attack == 3 and defence == 3:
+            return 1
+        if attack == 1 and defence == 2 or attack == 2 and defence == 1 \
+                or attack == 3 and defence == 2:
+            return 2
+        if attack == 1 and defence == 3 or attack == 2 and defence == 3 \
+                or attack == 3 and defence == 1:
+            return 3
 
     def attack(self, enemy) -> None:
         """Attack"""
@@ -100,12 +88,11 @@ class Player:
             print("IT'S A DRAW!")
         elif fight_result == 2:
             print("YOUR ATTACK IS FAILED!")
-            settings.PLAYER_HEALTH_LEVEL -= 1
         elif fight_result == 3:
             enemy.decrease_health()
             self.score += 1
             print("YOUR ATTACK IS SUCCESSFUL!")
-            print(f"Enemy have just: {enemy.level}")
+            print(f"Enemy have just: {enemy.health_point}")
 
     def defence(self, enemy: Enemy) -> None:
         """Defense"""
