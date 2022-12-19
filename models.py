@@ -44,6 +44,9 @@ class Player:
         self.health_point = health_point
         self.score = 0
 
+    def __repr__(self):
+        return f'Player: {self.name} | Score: {self.score}'
+
     def decrease_health(self):
         """ decrease health """
         self.health_point -= 1

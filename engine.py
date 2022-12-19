@@ -1,6 +1,7 @@
 """ Let's fight begin """
 from exceptions import EnemyDown, GameOver
 from models import Enemy, Player
+from settings import ENEMY_HEALTH_LEVEL
 
 
 def get_player_name():
@@ -25,33 +26,22 @@ def play() -> None:
     """ play the game """
     player_name = get_player_name()
     player = Player(player_name)
-    enemy = Enemy(5)
+    enemy = Enemy(ENEMY_HEALTH_LEVEL)
     score_list = []
 
     while True:
-        just_do_it = input('AVAILABLE MENU CHOICES: PLAY, SCORES, EXIT\n'
-                           'TYPE YOUR CHOICE HERE: ')
-        if just_do_it == 'SCORES':
-            watch_scores()
-            continue
-        if just_do_it == 'EXIT':
-            break
-        if just_do_it == 'PLAY':
-            while True:
-                try:
-                    player.attack(enemy)
-                    player.defence(enemy)
-                except EnemyDown:
-                    player.score += 5
-                    print(f'You WIN! \n>>>Your score: {player.score}')
-                    score_list.append(player.name)
-                    score_list.append(player.score)
-                    save_scores(score_list)
-                    enemy = Enemy(enemy.level + 1)
-                except GameOver:
-                    print(f'GAME OVER! \n>>>Enemy level: {enemy.level} \n'
-                          f'>>>Your score: {player.score}')
-                    break
+        try:
+            player.attack(enemy)
+            player.defence(enemy)
+        except EnemyDown:
+            player.score += 5
+            print(f'You WIN! \n>>>Your score: {player.score}')
+            score_list.append(player)
+            save_scores(score_list)
+            enemy = Enemy(enemy.level + 1)
+        except GameOver:
+            print(f'GAME OVER! \n>>>Enemy level: {enemy.level} \n'
+                  f'>>>Your score: {player.score}')
             break
 
 

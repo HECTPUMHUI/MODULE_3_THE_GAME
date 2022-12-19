@@ -120,3 +120,9 @@ Kapusta
 19
 PLAYKO 
 9
+Ощрт 
+9
+<models.Player object at 0x7f1f9c96ba00>
+<models.Player object at 0x7f1f9c96ba00> 
+<models.Player object at 0x7f1f9c96ba00>
+Player: DRAKE | Score: 9
